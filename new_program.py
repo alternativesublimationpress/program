@@ -701,21 +701,24 @@ Builder.load_string("""
 """)
 
 class uC:
-
+    @staticmethod
     def serial_write(data_to_send):
         MasterModule.write(str(data_to_send).encode('utf-8'))
         MasterModule.flush()
         delay.sleep(0.01)
-
+        
+    @staticmethod
     def serial_clear():
         if (MasterModule.inWaiting() > 0):
             MasterModule.read(MasterModule.inWaiting())
             MasterModule.flush()
 
+    @staticmethod
     def serial_read():
         myData = MasterModule.read(MasterModule.inWaiting())
         return myData
-
+    
+    @staticmethod
     def set_relay_up():
 
         global readRelay
@@ -726,6 +729,7 @@ class uC:
             myData = uC.serial_read()
             readRelay = int(myData[2:3])
 
+    @staticmethod
     def set_relay_down():
 
         global readRelay
@@ -735,7 +739,8 @@ class uC:
             uC.serial_write('AF2E')
             myData = uC.serial_read()
             readRelay = int(myData[2:3])
-
+            
+    @staticmethod
     def set_relay_zero():
 
         global readRelay
